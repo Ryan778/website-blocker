@@ -6,8 +6,8 @@
 // @author       Ryan
 // @match        http*://*/*
 // @grant        none
-// @updateURL    https://raw.githubusercontent.com/Ryan778/website-blocker/master/userscript.js
-// @downloadURL  https://raw.githubusercontent.com/Ryan778/website-blocker/master/userscript.js
+// @updateURL    https://raw.githubusercontent.com/Ryan778/website-blocker/master/script.user.js
+// @downloadURL  https://raw.githubusercontent.com/Ryan778/website-blocker/master/script.user.js
 // @include http://*/*
 // @include https://*/*
 // @grant unsafeWindow
