@@ -6,6 +6,11 @@
 // @author       Ryan
 // @match        http*://*/*
 // @grant        none
+// @updateURL    https://raw.githubusercontent.com/Ryan778/website-blocker/master/userscript.js
+// @downloadURL  https://raw.githubusercontent.com/Ryan778/website-blocker/master/userscript.js
+// @include http://*/*
+// @include https://*/*
+// @grant unsafeWindow
 // ==/UserScript==
 
 (function() {
