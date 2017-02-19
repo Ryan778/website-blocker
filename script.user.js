@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  Blocks non-hw related sites
 // @author       Ryan
 // @match        http*://*/*
@@ -20,7 +20,12 @@
         var exception = false;
         var title = (document.getElementsByTagName('title').length>0?document.getElementsByTagName('title')[0].innerHTML:'');
         if(location.pathname === '/guides/z3c6tfr' && location.hostname === 'www.bbc.co.uk' || location.hostname === 'play.bbc.co.uk' && title.indexOf('Dance Mat Typing') !== -1){exception = true}
-        if(allowed.indexOf(location.hostname) === -1 && !exception || location.hostname === 'www.google.com' && location.href.indexOf('q=') !== -1){
+        var blacklisted = false;
+        if(location.hostname === '50.155.208.17:8081'){
+            if(location.pathname === '/riley/games/'){blacklisted = true}
+            else if(location.pathname === '/riley/yt/player.html'){blacklisted = true}
+        }
+        if(allowed.indexOf(location.hostname) === -1 && !exception || location.hostname === 'www.google.com' && location.href.indexOf('q=') !== -1 || blacklisted){
             window.open('http://50.155.208.17:8081/riley/page-blocked/?goback=1','_self');
         }
     }
