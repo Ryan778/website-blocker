@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -37,8 +37,8 @@
         if(location.pathname === '/guides/z3c6tfr' && location.hostname === 'www.bbc.co.uk' || location.hostname === 'play.bbc.co.uk' && title.indexOf('Dance Mat Typing') !== -1){exception = true}
         var blacklisted = false;
         var containsProfanity = false; 
-        var lh = location.hostname.toLowerCase(); 
-        var profanity = ['f\x75ck', 'sh\x69t', 'b\x69tch', 'd\x69ck', 'n\x69gg\x65r'];
+        var lh = location.href.toLowerCase(); 
+        var profanity = ['f\x75ck', 'sh\x69t', 'b\x69tch', 'd\x69ck', 'n\x69gg\x65r', 'p\x6frn'];
         for(var i = 0; i < profanity.length; i++){
             if(lh.indexOf(profanity[i]) !== -1){
                 containsProfanity = true;
@@ -59,7 +59,7 @@
             var hash = location.hash.slice(1);
             if(hash !== genCode()){
                 alert('Invalid Access Code.\nIf you believe this is an error, please contact Ryan.');
-                window.open('http://50.155.208.17:8081/riley/page-blocked/?goback=1','_self');
+                window.open('http://50.155.208.17:8081/riley/page-blocked/?reason=accessCode&goback=1','_self');
             }
         }
     }
