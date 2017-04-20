@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.4
+// @version      0.5
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -31,14 +31,25 @@
     
     'use strict';
     if(!!location.href.match(/http.*:\/\//)){
-        var allowed = ['www.chesskid.com', 'app.readingeggs.com', 'student.mathseeds.com', 'kidsa-z.com', 'learnersdictionary.com', 'www.learnersdictionary.com', '10.10.1.140', '50.155.208.17', 'www.kidsa-z.com', 'www.google.com', 'zac.psdschools.org', 'www.psdschools.org', 'kin.psdschools.org'];
+        var allowed = ['www.chesskid.com', 'live.chesskid.com', 'app.readingeggs.com', 'student.mathseeds.com', 'kidsa-z.com', 'learnersdictionary.com', 'www.learnersdictionary.com', '10.10.1.140', '50.155.208.17', 'www.kidsa-z.com', 'www.google.com', 'zac.psdschools.org', 'www.psdschools.org', 'kin.psdschools.org'];
         var exception = false;
         var title = (document.getElementsByTagName('title').length>0?document.getElementsByTagName('title')[0].innerHTML:'');
         if(location.pathname === '/guides/z3c6tfr' && location.hostname === 'www.bbc.co.uk' || location.hostname === 'play.bbc.co.uk' && title.indexOf('Dance Mat Typing') !== -1){exception = true}
         var blacklisted = false;
+        var containsProfanity = false; 
+        var lh = location.hostname.toLowerCase(); 
+        var profanity = ['f\x75ck', 'sh\x69t', 'b\x69tch', 'd\x69ck', 'n\x69gg\x65r'];
+        for(var i = 0; i < profanity.length; i++){
+            if(lh.indexOf(profanity[i]) !== -1){
+                containsProfanity = true;
+            }
+        }
         if(location.hostname === '50.155.208.17:8081'){
             if(location.pathname === '/riley/games/'){blacklisted = true}
             else if(location.pathname === '/riley/yt/player.html'){blacklisted = true}
+        }
+        if(containsProfanity){
+            window.open('http://50.155.208.17:8081/riley/page-blocked/?goback=1&reason=profanity&targetsite='+location.href,'_self');
         }
         if(allowed.indexOf(location.hostname) === -1 && !exception || location.hostname === 'www.google.com' && location.href.indexOf('q=') !== -1 || blacklisted){
             window.open('http://50.155.208.17:8081/riley/page-blocked/?goback=1&targetsite='+location.href,'_self');
