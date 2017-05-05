@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.7
+// @version      0.8
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -47,6 +47,12 @@
         if(location.hostname === '50.155.208.17:8081'){
             if(location.pathname === '/riley/games/'){blacklisted = true}
             else if(location.pathname === '/riley/yt/player.html'){blacklisted = true}
+            else if(location.pathname === '/riley/spinner/'){blacklisted = true}
+        }
+        if(location.host === '50.155.208.17:8081'){
+            if(location.pathname.indexOf('riley') !== -1 && !blacklisted){
+                exception = true
+            }
         }
         if(containsProfanity){
             window.open('http://50.155.208.17:8081/riley/page-blocked/?goback=1&reason=profanity&targetsite='+location.href,'_self');
@@ -54,8 +60,8 @@
         if(allowed.indexOf(location.hostname) === -1 && !exception || location.hostname === 'www.google.com' && location.href.indexOf('q=') !== -1 || blacklisted){
             window.open('http://50.155.208.17:8081/riley/page-blocked/?goback=1&targetsite='+location.href,'_self');
         }
-        var restrictedSites = ['10.10.1.140:8092','10.10.1.140:8097','10.10.1.140:8091'];
-        if(restrictedSites.indexOf(location.host) !== -1 && location.pathname.indexOf('api') === -1){
+        var restrictedSites = ['10.10.1.140:8092','10.10.1.140:8097','10.10.1.140:8091', '50.155.208.17:8081'];
+        if(restrictedSites.indexOf(location.host) !== -1 && location.pathname.indexOf('api') === -1 && !exception){
             var hash = location.hash.slice(1);
             if(hash !== genCode()){
                 alert('Invalid Access Code.\nIf you believe this is an error, please contact Ryan.');
