@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.8
+// @version      0.9
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -56,6 +56,9 @@
         }
         if(containsProfanity){
             window.open('http://50.155.208.17:8081/riley/page-blocked/?goback=1&reason=profanity&targetsite='+location.href,'_self');
+        }
+        if(location.pathname.indexOf('movies') !== -1){
+            blacklisted = true
         }
         if(allowed.indexOf(location.hostname) === -1 && !exception || location.hostname === 'www.google.com' && location.href.indexOf('q=') !== -1 || blacklisted){
             window.open('http://50.155.208.17:8081/riley/page-blocked/?goback=1&targetsite='+location.href,'_self');
