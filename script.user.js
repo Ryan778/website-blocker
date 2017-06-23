@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.9
+// @version      0.10
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -31,7 +31,7 @@
     
     'use strict';
     if(!!location.href.match(/http.*:\/\//)){
-        var allowed = ['www.chesskid.com', 'live.chesskid.com', 'app.readingeggs.com', 'new.readingeggspress.com', 'student.mathseeds.com', 'kidsa-z.com', 'learnersdictionary.com', 'www.learnersdictionary.com', '10.10.1.140', '50.155.208.17', 'www.kidsa-z.com', 'www.google.com', 'zac.psdschools.org', 'www.psdschools.org', 'kin.psdschools.org'];
+        var allowed = ['www.chesskid.com', 'live.chesskid.com', 'app.readingeggs.com', 'new.readingeggspress.com', 'student.mathseeds.com', 'kidsa-z.com', 'learnersdictionary.com', 'www.learnersdictionary.com', '10.10.1.140', '67.173.228.237', 'www.kidsa-z.com', 'www.google.com', 'zac.psdschools.org', 'www.psdschools.org', 'kin.psdschools.org'];
         var exception = false;
         var title = (document.getElementsByTagName('title').length>0?document.getElementsByTagName('title')[0].innerHTML:'');
         if(location.pathname === '/guides/z3c6tfr' && location.hostname === 'www.bbc.co.uk' || location.hostname === 'play.bbc.co.uk' && title.indexOf('Dance Mat Typing') !== -1){exception = true}
@@ -44,31 +44,31 @@
                 containsProfanity = true;
             }
         }
-        if(location.hostname === '50.155.208.17:8081'){
+        if(location.hostname === '67.173.228.237:8081'){
             if(location.pathname === '/riley/games/'){blacklisted = true}
             else if(location.pathname === '/riley/yt/player.html'){blacklisted = true}
             else if(location.pathname === '/riley/spinner/'){blacklisted = true}
         }
-        if(location.host === '50.155.208.17:8081'){
+        if(location.host === '67.173.228.237:8081'){
             if(location.pathname.indexOf('riley') !== -1 && !blacklisted){
                 exception = true
             }
         }
         if(containsProfanity){
-            window.open('http://50.155.208.17:8081/riley/page-blocked/?goback=1&reason=profanity&targetsite='+location.href,'_self');
+            window.open('http://67.173.228.237:8081/riley/page-blocked/?goback=1&reason=profanity&targetsite='+location.href,'_self');
         }
         if(location.pathname.indexOf('movies') !== -1){
             blacklisted = true
         }
         if(allowed.indexOf(location.hostname) === -1 && !exception || location.hostname === 'www.google.com' && location.href.indexOf('q=') !== -1 || blacklisted){
-            window.open('http://50.155.208.17:8081/riley/page-blocked/?goback=1&targetsite='+location.href,'_self');
+            window.open('http://67.173.228.237:8081/riley/page-blocked/?goback=1&targetsite='+location.href,'_self');
         }
-        var restrictedSites = ['10.10.1.140:8092','10.10.1.140:8097','10.10.1.140:8091', '50.155.208.17:8081'];
+        var restrictedSites = ['10.10.1.140:8092','10.10.1.140:8097','10.10.1.140:8091', '67.173.228.237:8081'];
         if(restrictedSites.indexOf(location.host) !== -1 && location.pathname.indexOf('api') === -1 && !exception){
             var hash = location.hash.slice(1);
             if(hash !== genCode()){
                 alert('Invalid Access Code.\nIf you believe this is an error, please contact Ryan.');
-                window.open('http://50.155.208.17:8081/riley/page-blocked/?reason=accessCode&goback=1','_self');
+                window.open('http://67.173.228.237:8081/riley/page-blocked/?reason=accessCode&goback=1','_self');
             }
         }
     }
