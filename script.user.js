@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.12
+// @version      0.13
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -53,6 +53,9 @@
             if(location.pathname.indexOf('riley') !== -1 && !blacklisted){
                 exception = true
             }
+        }
+        if(location.host === 'ryan778.github.io' && location.pathname === '/flop/'){
+            exception = true
         }
         if(containsProfanity){
             window.open('http://67.173.228.237:8081/riley/page-blocked/?goback=1&reason=profanity&targetsite='+location.href,'_self');
