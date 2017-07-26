@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.13
+// @version      0.14
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -54,7 +54,7 @@
                 exception = true
             }
         }
-        if(location.host === 'ryan778.github.io' && location.pathname === '/flop/'){
+        if(location.host === 'ryan778.github.io' && location.pathname === '/flop/' || location.host === 'ryan778.github.io' && location.pathname === '/kevinspin/'){
             exception = true
         }
         if(containsProfanity){
@@ -63,7 +63,7 @@
         if(location.pathname.indexOf('movies') !== -1){
             blacklisted = true
         }
-        if(allowed.indexOf(location.hostname) === -1 && !exception || location.hostname === 'www.google.com' && location.href.indexOf('q=') !== -1 || blacklisted){
+        if(allowed.indexOf(location.hostname) === -1 && !exception || location.hostname === 'www.google.com' && location.href.indexOf('search?') !== -1 || blacklisted){
             window.open('http://67.173.228.237:8081/riley/page-blocked/?goback=1&targetsite='+location.href,'_self');
         }
         var restrictedSites = ['10.10.1.140:8092','10.10.1.140:8097','10.10.1.140:8091', 'ryan:8092', 'ryan:8097', 'ryan:8091', '67.173.228.237:8081'];
