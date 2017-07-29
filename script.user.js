@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.16
+// @version      0.17
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -47,6 +47,7 @@
         if(location.hostname === '67.173.228.237:8081'){
             if(location.pathname === '/riley/games/'){blacklisted = true}
             else if(location.pathname === '/riley/yt/player.html'){blacklisted = true}
+            else if(location.pathname === '/riley/ata/'){blacklisted = true}
             else if(location.pathname === '/riley/spinner/'){blacklisted = true}
         }
         if(location.host === '67.173.228.237:8081'){
