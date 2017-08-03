@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.18
+// @version      0.19
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -62,10 +62,10 @@
             window.open('http://67.173.228.237:8081/riley/page-blocked/?goback=1&reason=profanity&targetsite='+location.href,'_self');
         }
         if(location.pathname.indexOf('movies') !== -1){
-            if(new Date().getDay() !== 0 || new Date().getDay() < 4){
+            if(new Date().getDay() !== 0 && new Date().getDay() < 4){
                 blacklisted = true;
             }
-            else{
+            else if(location.hostname === '10.10.1.140:8092'){
                 exception = true;
             }
         }
