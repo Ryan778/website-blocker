@@ -65,7 +65,7 @@
             if(new Date().getDay() !== 0 && new Date().getDay() < 4){
                 blacklisted = true;
             }
-            else if(location.hostname === '10.10.1.140:8092'){
+            else if(location.hostname === '10.10.1.140:8092' || location.hostname === 'ryan:8092'){
                 exception = true;
             }
         }
