@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.19
+// @version      0.20
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -65,8 +65,8 @@
             if(new Date().getDay() !== 0 && new Date().getDay() < 4){
                 blacklisted = true;
             }
-            else if(location.hostname === '10.10.1.140:8092' || location.hostname === 'ryan:8092'){
-                exception = true;
+            else{
+                exception = true
             }
         }
         if(location.hostname === 'www.google.com'){
