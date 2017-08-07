@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.21
+// @version      0.22
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -61,14 +61,6 @@
         if(containsProfanity){
             window.open('http://67.173.228.237:8081/riley/page-blocked/?goback=1&reason=profanity&targetsite='+location.href,'_self');
         }
-        if(location.pathname.indexOf('movies') !== -1){
-            if(new Date().getDay() < 4){
-                blacklisted = true;
-            }
-            else{
-                exception = true
-            }
-        }
         if(location.hostname === 'www.google.com'){
             if(location.href.indexOf('search?') !== -1 || location.href.indexOf('newtab') === -1){
                 blacklisted = true;
@@ -81,6 +73,7 @@
         if(restrictedSites.indexOf(location.host) !== -1 && location.pathname.indexOf('api') === -1 && !exception){
             var hash = location.hash.slice(1);
             if(hash !== genCode()){
+                document.write('');
                 alert('Invalid Access Code.\nIf you believe this is an error, please contact Ryan.');
                 window.open('http://67.173.228.237:8081/riley/page-blocked/?reason=accessCode&goback=1','_self');
             }
