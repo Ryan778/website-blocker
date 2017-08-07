@@ -66,6 +66,9 @@
                 blacklisted = true;
             }
         }
+        if(location.host === '10.10.1.140:8092' && location.pathname.indexOf('movies') !== -1 && location.pathname.indexOf('watch') !== -1){
+            exception = true;
+        }
         if(allowed.indexOf(location.hostname) === -1 && !exception || blacklisted){
             window.open('http://67.173.228.237:8081/riley/page-blocked/?goback=1&targetsite='+location.href,'_self');
         }
