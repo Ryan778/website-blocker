@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.22
+// @version      0.23
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -63,6 +63,11 @@
         }
         if(location.hostname === 'www.google.com'){
             if(location.href.indexOf('search?') !== -1 || location.href.indexOf('newtab') === -1){
+                blacklisted = true;
+            }
+        }
+        if(location.hostname === 'www.chesskid.com'){
+            if(location.pathname === '/video/player/the-magic-of-chess' || location.pathname === '/video/player/an-introduction-to-chess'){
                 blacklisted = true;
             }
         }
