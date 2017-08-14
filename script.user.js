@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.26
+// @version      0.27
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -70,7 +70,7 @@
             }
         }
         if(location.hostname === 'www.chesskid.com'){
-            let blocked_videos = ['an-introduction-to-chess', 'the-magic-of-chess', 'check2', 'checkmate3', 'stalemate'];
+            let blocked_videos = ['an-introduction-to-chess', 'the-magic-of-chess', 'check2', 'checkmate3', 'stalemate', 'help-needed', 'king-and-queen-mate', 'rook-roller2', 'castling', 'special-pawn-moves2', 'back-rank-mate', 'first-moves---part-1', 'first-moves---part-2'];
             for(let i = 0; i < blocked_videos.length; i++){
                 if(location.pathname === '/video/player/'+blocked_videos[i] || location.pathname === '/lessons/video/'+blocked_videos[i]){
                     blacklisted = true;
