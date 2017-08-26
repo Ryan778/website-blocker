@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.28
+// @version      0.29
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -96,6 +96,15 @@
                 document.write('');
                 alert('Invalid Access Code.\nIf you believe this is an error, please contact Ryan.');
                 window.open('http://67.173.228.237:8081/riley/page-blocked/?reason=accessCode&goback=1','_self');
+            }
+        }
+        if(document.getElementsByTagName('iframe')){
+            let iframes = document.getElementsByTagName('iframe');
+            for(let i = 0; i < iframes.length; i++){
+                let blacklsitedIframes = ['https://www.youtube.com/embed/Ut22hTc0Qdw'];
+                if(blacklsitedIframes.indexOf(iframes[i].src) !== -1){
+                    iframes[i].src = ''
+                }
             }
         }
     }
