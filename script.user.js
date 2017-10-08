@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.31
+// @version      0.32
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -75,6 +75,9 @@
                 if(location.pathname === '/video/player/'+blocked_videos[i] || location.pathname === '/lessons/video/'+blocked_videos[i]){
                     blacklisted = true;
                 }
+            }
+            if(location.pathname.indexOf('making-chess-fun-with-chesskid-gifs') !== -1){
+                blacklisted = true;
             }
             if(document.getElementsByClassName('puzzles-try-again').length > 0){
                 if(document.getElementsByClassName('puzzles-try-again')[0].offsetHeight !== 0){
