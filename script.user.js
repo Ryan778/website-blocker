@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.34
+// @version      0.35
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -31,7 +31,7 @@
     
     'use strict';
     if(!!location.href.match(/http.*:\/\//)){
-        var allowed = ['www.chesskid.com', 'live.chesskid.com', 'app.readingeggs.com', 'new.readingeggspress.com', 'student.mathseeds.com', 'sso.readingeggs.com', 'kidsa-z.com', 'learnersdictionary.com', 'www.learnersdictionary.com', '10.10.1.140', '67.173.228.237', 'www.kidsa-z.com', 'www.google.com', 'zac.psdschools.org', 'www.psdschools.org', 'kin.psdschools.org', 'ryan778.herokuapp.com', 'www.typingtest.com', 'hosted124.renlearn.com', 'www.adaptedmind.com', 'adaptedmind.com', 'www.spellingcity.com', 'www.khanacademy.org', 'cdn.kastatic.org', 'code.org', 'studio.code.org'];
+        var allowed = ['www.chesskid.com', 'live.chesskid.com', 'app.readingeggs.com', 'new.readingeggspress.com', 'student.mathseeds.com', 'sso.readingeggs.com', 'kidsa-z.com', 'learnersdictionary.com', 'www.learnersdictionary.com', '10.10.1.140', '67.173.228.237', 'www.kidsa-z.com', 'www.google.com', 'zac.psdschools.org', 'www.psdschools.org', 'kin.psdschools.org', 'ryan778.herokuapp.com', 'www.typingtest.com', 'hosted124.renlearn.com', 'www.adaptedmind.com', 'adaptedmind.com', 'www.spellingcity.com', 'www.khanacademy.org', 'cdn.kastatic.org', 'code.org', 'studio.code.org', 'g.co', 'codecademy.com', 'scratch.mit.edu', 'web.mit.edu'];
         var exception = false;
         var title = (document.getElementsByTagName('title').length>0?document.getElementsByTagName('title')[0].innerHTML:'');
         if(location.pathname === '/guides/z3c6tfr' && location.hostname === 'www.bbc.co.uk' || location.hostname === 'play.bbc.co.uk' && title.indexOf('Dance Mat Typing') !== -1){exception = true}
