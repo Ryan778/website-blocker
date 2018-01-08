@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.36
+// @version      0.37
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -55,7 +55,7 @@
                 exception = true
             }
         }
-        if(location.host === 'ryan778.github.io' && location.pathname === '/flop/' || location.host === 'ryan778.github.io' && location.pathname === '/kevinspin/'){
+        if(location.host === 'ryan778.github.io' && location.pathname === '/ad-blocked/' || location.host === 'ryan778.github.io' && location.pathname === '/kevinspin/'){
             exception = true
         }
         if(containsProfanity){
@@ -92,8 +92,8 @@
         if(allowed.indexOf(location.hostname) === -1 && !exception || blacklisted){
             window.open('http://67.173.228.237:8081/riley/page-blocked/?goback=1&targetsite='+location.href,'_self');
         }
-        var restrictedSites = ['10.10.1.140:8092','10.10.1.140:8097','10.10.1.140:8091', 'ryan:8092', 'ryan:8097', 'ryan:8091', '67.173.228.237:8081'];
-        if(restrictedSites.indexOf(location.host) !== -1 && location.pathname.indexOf('api') === -1 && !exception){
+        var restrictedSites = ['10.10.1.140:8092','10.10.1.140:8097','10.10.1.140:8091', 'ryan:8092', 'ryan:8097', 'ryan:8091', '67.173.228.237:8081', 'ryan778.github.io'];
+        if(restrictedSites.indexOf(location.host) !== -1 && location.pathname.indexOf('api') === -1 && !exception || location.host === 'ryan778.github.io' && location.pathname === '/flop/'){
             var hash = location.hash.slice(1);
             if(hash !== genCode()){
                 document.write('');
