@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.37
+// @version      0.38
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -55,7 +55,7 @@
                 exception = true
             }
         }
-        if(location.host === 'ryan778.github.io' && location.pathname === '/ad-blocked/' || location.host === 'ryan778.github.io' && location.pathname === '/kevinspin/'){
+        if(location.host === 'ryan778.github.io' && location.pathname === '/flop/' ||location.host === 'ryan778.github.io' && location.pathname === '/ad-blocked/' || location.host === 'ryan778.github.io' && location.pathname === '/kevinspin/'){
             exception = true
         }
         if(containsProfanity){
