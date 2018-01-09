@@ -55,7 +55,7 @@
                 exception = true
             }
         }
-        if(location.host === 'ryan778.github.io' && location.pathname === '/flop/' ||location.host === 'ryan778.github.io' && location.pathname === '/ad-blocked/' || location.host === 'ryan778.github.io' && location.pathname === '/kevinspin/'){
+        if(location.host === 'ryan778.github.io' && location.pathname === '/flop/' || location.host === 'ryan778.github.io' && location.pathname === '/ad-blocked/' || location.host === 'ryan778.github.io' && location.pathname === '/kevinspin/'){
             exception = true
         }
         if(containsProfanity){
