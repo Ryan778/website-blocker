@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.40
+// @version      0.41
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
 // @grant        none
+// @run-at       document-start
 // @updateURL    https://raw.githubusercontent.com/Ryan778/website-blocker/master/script.user.js
 // @downloadURL  https://raw.githubusercontent.com/Ryan778/website-blocker/master/script.user.js
 // @include http://*/*
