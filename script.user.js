@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.42
+// @version      0.43
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -29,16 +29,30 @@
         a1 = a1.toString().substr(0,6);
         return a1;
     }
-    
+    function genSecCode(){
+        var d = new Date();
+        var a = Math.pow((d.getDate()*4),Math.abs((d.getDay()-14))+1);
+        a *= (d.getHours()+5);
+        a += d.getYear();
+
+        var a1 = Math.round(a/(d.getDay()+1));
+        while (a1.toString().length <= 12){
+            a1 *= (Math.abs(Math.round((d.getDate()-14)/2))+4);
+            a1 += d.getFullYear();
+        }
+        a1 = btoa(a1.toString() + a1.toString()).substr(0,24);
+        return a1;
+    }
+
     'use strict';
     if(!!location.href.match(/http.*:\/\//)){
-        var allowed = ['www.chesskid.com', 'live.chesskid.com', 'app.readingeggs.com', 'new.readingeggspress.com', 'student.mathseeds.com', 'sso.readingeggs.com', 'kidsa-z.com', 'learnersdictionary.com', 'www.learnersdictionary.com', '10.10.1.140', '67.173.228.237', 'www.kidsa-z.com', 'www.google.com', 'zac.psdschools.org', 'www.psdschools.org', 'kin.psdschools.org', 'ryan778.herokuapp.com', 'www.typingtest.com', 'hosted124.renlearn.com', 'www.adaptedmind.com', 'adaptedmind.com', 'www.spellingcity.com', 'www.khanacademy.org', 'cdn.kastatic.org', 'code.org', 'studio.code.org', 'g.co', 'codecademy.com', 'scratch.mit.edu', 'web.mit.edu', 'app.vidcode.io', 'csfirst.withgoogle.com', 'santatracker.google.com', 'www.typingclub.com', 'zachfc.typingclub.com', 'typeracer.com', 'play.typeracer.com', 'www.nitrotype.com', 'www.beestar.org', 'xtramath.org', 'ryan778.azurewebsites.net'];
+        var allowed = ['www.chesskid.com', 'live.chesskid.com', 'app.readingeggs.com', 'new.readingeggspress.com', 'student.mathseeds.com', 'sso.readingeggs.com', 'kidsa-z.com', 'learnersdictionary.com', 'www.learnersdictionary.com', '10.10.1.140', '67.173.228.237', 'www.kidsa-z.com', 'www.google.com', 'zac.psdschools.org', 'www.psdschools.org', 'kin.psdschools.org', 'ryan778.herokuapp.com', 'www.typingtest.com', 'hosted124.renlearn.com', 'www.adaptedmind.com', 'adaptedmind.com', 'www.spellingcity.com', 'www.khanacademy.org', 'cdn.kastatic.org', 'code.org', 'studio.code.org', 'g.co', 'codecademy.com', 'scratch.mit.edu', 'web.mit.edu', 'app.vidcode.io', 'csfirst.withgoogle.com', 'santatracker.google.com', 'www.typingclub.com', 'zachfc.typingclub.com', 'typeracer.com', 'play.typeracer.com', 'www.beestar.org', 'xtramath.org', 'ryan778.azurewebsites.net', 'www.nitrotype.com', 'fs.psdschools.org', 'k12integrations.pearsoncmg.com'];
         var exception = false;
         var title = (document.getElementsByTagName('title').length>0?document.getElementsByTagName('title')[0].innerHTML:'');
         if(location.pathname === '/guides/z3c6tfr' && location.hostname === 'www.bbc.co.uk' || location.hostname === 'play.bbc.co.uk' && title.indexOf('Dance Mat Typing') !== -1){exception = true}
         var blacklisted = false;
-        var containsProfanity = false; 
-        var lh = location.href.toLowerCase(); 
+        var containsProfanity = false;
+        var lh = location.href.toLowerCase();
         var profanity = ['f\x75ck', 'sh\x69t', 'b\x69tch', 'd\x69ck', 'n\x69gg\x65r', 'p\x6frn', 'poop', 'pee ', 'pee%20']; //Includes profanity as well as some other words
         for(var i = 0; i < profanity.length; i++){
             if(lh.indexOf(profanity[i]) !== -1){
@@ -91,12 +105,44 @@
             exception = true;
         }
         if(allowed.indexOf(location.hostname) === -1 && !exception || blacklisted){
+            if(location.hash.slice(1) === genSecCode()){
+                location.hash = '#sp:unblock';
+                alert('This website has been temporarily unblocked.\nDuration: One session (max 1 hour)');
+                sessionStorage.wb_secCodeSingleUse = Date.now();
+                return true;
+            }
+            if(sessionStorage.wb_secCodeSingleUse){
+                let d = parseInt(sessionStorage.wb_secCodeSingleUse);
+                if(Date.now() < d + 3600000){
+                    return true; //Temporary authorization
+                }
+            }
             window.open('http://67.173.228.237:8081/riley/page-blocked/?goback=1&targetsite='+location.href,'_self');
         }
-        var restrictedSites = ['10.10.1.140:8092','10.10.1.140:8097','10.10.1.140:8091', 'ryan:8092', 'ryan:8097', 'ryan:8091', '67.173.228.237:8081', 'ryan778.github.io'];
+        var restrictedSites = ['10.10.1.140:8092','10.10.1.140:8097','10.10.1.140:8091', 'ryan:8092', 'ryan:8097', 'ryan:8091', '67.173.228.237:8081', 'ryan778.github.io', 'www.nitrotype.com'];
         if(restrictedSites.indexOf(location.host) !== -1 && location.pathname.indexOf('api') === -1 && !exception || location.host === 'ryan778.github.io' && location.pathname === '/flop/'){
             var hash = location.hash.slice(1);
-            if(hash !== genCode()){
+            if(sessionStorage.wb_tempCode === genCode()){
+                //OK
+                return;
+            }
+            else if(hash === ''){
+                let p = window.prompt('It appears that no access code was provided, but you\'ll need one in order to access this page. \n\nIf you have one, enter it here and press OK.');
+                if(p === genCode()){
+                    alert('Access code validated. You will not need to enter the code again for the rest of this current session.');
+                    sessionStorage.wb_tempCode = genCode();
+                }
+                else if (!p){
+                    document.write('');
+                    window.open('http://67.173.228.237:8081/riley/page-blocked/?reason=accessCode&goback=1','_self');
+                }
+                else{
+                    document.write('');
+                    alert('Invalid Access Code entered.\nIf you believe this is an error, please contact Ryan.');
+                    window.open('http://67.173.228.237:8081/riley/page-blocked/?reason=accessCode&goback=1','_self');
+                }
+            }
+            else if(hash !== genCode()){
                 document.write('');
                 alert('Invalid Access Code.\nIf you believe this is an error, please contact Ryan.');
                 window.open('http://67.173.228.237:8081/riley/page-blocked/?reason=accessCode&goback=1','_self');
