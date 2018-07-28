@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.49
+// @version      0.50
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -15,6 +15,7 @@
 // ==/UserScript==
 
 (function() {
+    //temp. removed: 'scratch.mit.edu' 
     function genCode(){
         var d = new Date();
         var a = Math.pow((d.getDate()*3),Math.abs((d.getDay()*2-12)));
@@ -46,7 +47,7 @@
 
     'use strict';
     if(!!location.href.match(/http.*:\/\//)){
-        var allowed = ['www.ixl.com', 'www.chess.com', 'www.chesskid.com', 'live.chesskid.com', 'support.chesskid.com', 'app.readingeggs.com', 'new.readingeggspress.com', 'student.mathseeds.com', 'sso.readingeggs.com', 'kidsa-z.com', 'learnersdictionary.com', 'www.learnersdictionary.com', 'www.oxfordlearnersdictionaries.com', '10.10.1.140', '67.173.228.237', 'www.kidsa-z.com', 'www.google.com', 'zac.psdschools.org', 'www.psdschools.org', 'kin.psdschools.org', 'ryan778.herokuapp.com', 'www.typingtest.com', 'hosted124.renlearn.com', 'www.adaptedmind.com', 'adaptedmind.com', 'www.spellingcity.com', 'www.khanacademy.org', 'cdn.kastatic.org', 'code.org', 'studio.code.org', 'g.co', 'codecademy.com', 'scratch.mit.edu', 'web.mit.edu', 'app.vidcode.io', 'csfirst.withgoogle.com', 'santatracker.google.com', 'www.typingclub.com', 'zachfc.typingclub.com', 'typeracer.com', 'play.typeracer.com', 'www.beestar.org', 'xtramath.org', 'ryan778.azurewebsites.net', 'www.nitrotype.com', 'fs.psdschools.org', 'k12integrations.pearsoncmg.com', 'lichess.org', 'musescore.com', 'musescore.org', 'www.houstonzoo.org', 'www.youtube-nocookie.com'];
+        var allowed = ['www.ixl.com', 'www.chess.com', 'www.chesskid.com', 'live.chesskid.com', 'support.chesskid.com', 'app.readingeggs.com', 'new.readingeggspress.com', 'student.mathseeds.com', 'sso.readingeggs.com', 'kidsa-z.com', 'learnersdictionary.com', 'www.learnersdictionary.com', 'www.oxfordlearnersdictionaries.com', '10.10.1.140', '67.173.228.237', 'www.kidsa-z.com', 'www.google.com', 'zac.psdschools.org', 'www.psdschools.org', 'kin.psdschools.org', 'ryan778.herokuapp.com', 'www.typingtest.com', 'hosted124.renlearn.com', 'www.adaptedmind.com', 'adaptedmind.com', 'www.spellingcity.com', 'www.khanacademy.org', 'cdn.kastatic.org', 'code.org', 'studio.code.org', 'g.co', 'codecademy.com', 'web.mit.edu', 'app.vidcode.io', 'csfirst.withgoogle.com', 'santatracker.google.com', 'www.typingclub.com', 'zachfc.typingclub.com', 'typeracer.com', 'play.typeracer.com', 'www.beestar.org', 'xtramath.org', 'ryan778.azurewebsites.net', 'www.nitrotype.com', 'fs.psdschools.org', 'k12integrations.pearsoncmg.com', 'lichess.org', 'musescore.com', 'musescore.org', 'www.houstonzoo.org', 'www.youtube-nocookie.com'];
         var exception = false;
         var title = (document.getElementsByTagName('title').length>0?document.getElementsByTagName('title')[0].innerHTML:'');
         if(location.pathname === '/guides/z3c6tfr' && location.hostname === 'www.bbc.co.uk' || location.hostname === 'play.bbc.co.uk' && title.indexOf('Dance Mat Typing') !== -1){exception = true}
