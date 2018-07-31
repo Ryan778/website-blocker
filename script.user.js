@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Website Blocker
 // @namespace    http://tampermonkey.net/
-// @version      0.50
+// @version      0.51
 // @description  Blocks non-hw related sites (For Personal Use)
 // @author       Ryan
 // @match        http*://*/*
@@ -15,7 +15,6 @@
 // ==/UserScript==
 
 (function() {
-    //temp. removed: 'scratch.mit.edu' 
     function genCode(){
         var d = new Date();
         var a = Math.pow((d.getDate()*3),Math.abs((d.getDay()*2-12)));
@@ -47,7 +46,7 @@
 
     'use strict';
     if(!!location.href.match(/http.*:\/\//)){
-        var allowed = ['www.ixl.com', 'www.chess.com', 'www.chesskid.com', 'live.chesskid.com', 'support.chesskid.com', 'app.readingeggs.com', 'new.readingeggspress.com', 'student.mathseeds.com', 'sso.readingeggs.com', 'kidsa-z.com', 'learnersdictionary.com', 'www.learnersdictionary.com', 'www.oxfordlearnersdictionaries.com', '10.10.1.140', '67.173.228.237', 'www.kidsa-z.com', 'www.google.com', 'zac.psdschools.org', 'www.psdschools.org', 'kin.psdschools.org', 'ryan778.herokuapp.com', 'www.typingtest.com', 'hosted124.renlearn.com', 'www.adaptedmind.com', 'adaptedmind.com', 'www.spellingcity.com', 'www.khanacademy.org', 'cdn.kastatic.org', 'code.org', 'studio.code.org', 'g.co', 'codecademy.com', 'web.mit.edu', 'app.vidcode.io', 'csfirst.withgoogle.com', 'santatracker.google.com', 'www.typingclub.com', 'zachfc.typingclub.com', 'typeracer.com', 'play.typeracer.com', 'www.beestar.org', 'xtramath.org', 'ryan778.azurewebsites.net', 'www.nitrotype.com', 'fs.psdschools.org', 'k12integrations.pearsoncmg.com', 'lichess.org', 'musescore.com', 'musescore.org', 'www.houstonzoo.org', 'www.youtube-nocookie.com'];
+        var allowed = ['www.ixl.com', 'www.chess.com', 'www.chesskid.com', 'live.chesskid.com', 'support.chesskid.com', 'app.readingeggs.com', 'new.readingeggspress.com', 'student.mathseeds.com', 'sso.readingeggs.com', 'kidsa-z.com', 'learnersdictionary.com', 'www.learnersdictionary.com', 'www.oxfordlearnersdictionaries.com', '10.10.1.140', '67.173.228.237', 'www.kidsa-z.com', 'www.google.com', 'zac.psdschools.org', 'www.psdschools.org', 'kin.psdschools.org', 'ryan778.herokuapp.com', 'www.typingtest.com', 'hosted124.renlearn.com', 'www.adaptedmind.com', 'adaptedmind.com', 'www.spellingcity.com', 'www.khanacademy.org', 'cdn.kastatic.org', 'code.org', 'studio.code.org', 'g.co', 'codecademy.com', 'web.mit.edu', 'app.vidcode.io', 'csfirst.withgoogle.com', 'santatracker.google.com', 'www.typingclub.com', 'zachfc.typingclub.com', 'typeracer.com', 'play.typeracer.com', 'www.beestar.org', 'xtramath.org', 'ryan778.azurewebsites.net', 'www.nitrotype.com', 'fs.psdschools.org', 'k12integrations.pearsoncmg.com', 'lichess.org', 'musescore.com', 'musescore.org', 'www.houstonzoo.org', 'www.youtube-nocookie.com', 'scratch.mit.edu'];
         var exception = false;
         var title = (document.getElementsByTagName('title').length>0?document.getElementsByTagName('title')[0].innerHTML:'');
         if(location.pathname === '/guides/z3c6tfr' && location.hostname === 'www.bbc.co.uk' || location.hostname === 'play.bbc.co.uk' && title.indexOf('Dance Mat Typing') !== -1){exception = true}
@@ -102,6 +101,18 @@
                 }
             }
         }
+        if(location.hostname === 'scratch.mit.edu'){
+            let whitelistedProjects = ['starter_projects', 'editor', 'explore', '121180931', '177224273', '10128067', '10015059', '10015060', '11806234', '10128515', '10128431', '10128368', '11656680', '10015857', '11829803', '10007296', '11641125', '10015792', '10012676', '10128483', '11640429', '10014866', '10063757', '10128197', '11804271', '10128168', '10128119', '10123832'];
+            if(location.pathname.indexOf('projects') !== -1){
+                let valid = false;
+                for(let i = 0; i < whitelistedProjects.length; i++){
+                    if(location.pathname.indexOf(whitelistedProjects[i]) !== -1){
+                        valid = true;
+                    }
+                }
+                if(!valid){blacklisted = true}
+            }
+        }
         if(location.host === '10.10.1.140:8092' && location.pathname.indexOf('movies') !== -1 && location.pathname.indexOf('watch') !== -1){
             exception = true;
         }
@@ -120,7 +131,7 @@
             }
             window.open('http://67.173.228.237:8081/riley/page-blocked/?goback=1&targetsite='+location.href,'_self');
         }
-        var restrictedSites = ['10.10.1.140:8092','10.10.1.140:8097','10.10.1.140:8091', 'ryan:8092', 'ryan:8097', 'ryan:8091', '67.173.228.237:8081', 'ryan778.github.io', 'www.nitrotype.com', 'www.houstonzoo.org'];
+        var restrictedSites = ['10.10.1.140:8092','10.10.1.140:8097','10.10.1.140:8091', 'ryan:8092', 'ryan:8097', 'ryan:8091', '67.173.228.237:8081', 'ryan778.github.io', 'www.nitrotype.com', 'www.houstonzoo.org', 'scratch.mit.edu'];
         if(restrictedSites.indexOf(location.host) !== -1 && location.pathname.indexOf('api') === -1 && !exception || location.host === 'ryan778.github.io' && location.pathname === '/flop/'){
             var hash = location.hash.slice(1);
             if(sessionStorage.wb_tempCode === genCode()){
